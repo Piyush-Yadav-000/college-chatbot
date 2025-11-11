@@ -1,23 +1,8 @@
-import os
-from vercel_wsgi import handle
-from pathlib import Path
-import sys
-
-# make project root importable
-sys.path.append(str(Path(__file__).resolve().parents[1]))
-
-from app import app as application
-
-def handler(event, context):
-    return handle(application, event, context)
-
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
+import os
 
-app = Flask(__name__, 
-            template_folder='../templates',
-            static_folder='../static')
-
+app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-change-in-production')
 
 class CollegeChatbot:
@@ -116,6 +101,7 @@ chatbot = CollegeChatbot()
 def home():
     return render_template("index.html")
 
+# UPDATED: Changed from /get to /api/get
 @app.route("/api/get", methods=["POST"])
 def get_response():
     try:
@@ -130,6 +116,5 @@ def get_response():
     except Exception as e:
         return jsonify({"error": "Server error"}), 500
 
-# Vercel serverless function handler
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True, host='0.0.0.0', port=5000)
