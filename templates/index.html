@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MRIIRS Official Chatbot - Get instant information about admissions, courses, fees, placements, and facilities at Manav Rachna International Institute of Research and Studies.">
+    <meta name="keywords" content="MRIIRS, Manav Rachna, admission, courses, placement, chatbot, Faridabad university">
+    <meta name="theme-color" content="#184892">
+    
+    <title>🎓 MRIIRS - College Assistant Chatbot</title>
+    
+    <!-- Preconnect for faster font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Inline Critical CSS for Manav Rachna Branding -->
+    <style>
+        :root {
+            /* Manav Rachna Brand Colors */
+            --primary-gradient: linear-gradient(135deg, #184892 0%, #1e5fb8 100%);
+            --secondary-gradient: linear-gradient(135deg, #28a745 0%, #34c759 100%);
+            --accent-color: #184892;
+            --green-accent: #28a745;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #184892 0%, #28a745 100%);
+        }
+        
+        .bot-avatar {
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%) !important;
+            color: #184892 !important;
+        }
+        
+        #send-btn {
+            background: linear-gradient(135deg, #184892 0%, #1e5fb8 100%);
+        }
+        
+        .user-msg {
+            background: linear-gradient(135deg, #184892 0%, #1e5fb8 100%);
+        }
+        
+        .quick-btn:hover {
+            background: rgba(24, 72, 146, 0.35);
+        }
+        
+        .chat-header {
+            background: rgba(24, 72, 146, 0.85) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Bubbles -->
+    <div class="background-animation">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <!-- Main Chat Container -->
+    <div class="chat-container">
+        <!-- Header -->
+        <div class="chat-header">
+            <div class="header-content">
+                <div class="bot-avatar">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="header-text">
+                    <h1>MRIIRS Assistant</h1>
+                    <p class="status">
+                        <span class="status-dot"></span>
+                        Online - Ready to Help
+                    </p>
+                </div>
+            </div>
+               <!-- Floating Chat Button (shows when chat is minimized) -->
+    <button id="chat-toggle-btn" class="chat-toggle-btn" onclick="toggleChat()" aria-label="Open chat">
+        <i class="fas fa-comments"></i>
+        <span class="notification-badge">1</span>
+    </button>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+
+        </div>
+
+        <!-- Chat Messages Area -->
+        <div id="chat-box" class="chat-box" role="log" aria-live="polite" aria-label="Chat messages">
+            <div class="date-divider">
+                <span>Today</span>
+            </div>
+            <div class="bot-msg-container">
+                <div class="msg-avatar" aria-hidden="true">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="bot-msg">
+                    <p>👋 Welcome to Manav Rachna International Institute of Research and Studies! I'm here to help you with admissions, courses, placements, and more. How can I assist you today?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Action Buttons -->
+        <div class="options" role="toolbar" aria-label="Quick question buttons">
+            <button class="quick-btn" onclick="sendMessage('What courses do you offer?')" aria-label="Ask about courses">
+                <i class="fas fa-book" aria-hidden="true"></i>
+                <span>Courses</span>
+            </button>
+            <button class="quick-btn" onclick="sendMessage('Tell me about admissions')" aria-label="Ask about admissions">
+                <i class="fas fa-file-alt" aria-hidden="true"></i>
+                <span>Admission</span>
+            </button>
+            <button class="quick-btn" onclick="sendMessage('What are the fees?')" aria-label="Ask about fees">
+                <i class="fas fa-rupee-sign" aria-hidden="true"></i>
+                <span>Fees</span>
+            </button>
+            <button class="quick-btn" onclick="sendMessage('Hostel facilities')" aria-label="Ask about hostel">
+                <i class="fas fa-home" aria-hidden="true"></i>
+                <span>Hostel</span>
+            </button>
+            <button class="quick-btn" onclick="sendMessage('Placement information')" aria-label="Ask about placements">
+                <i class="fas fa-briefcase" aria-hidden="true"></i>
+                <span>Placement</span>
+            </button>
+            <button class="quick-btn" onclick="sendMessage('Contact details')" aria-label="Ask for contact information">
+                <i class="fas fa-phone" aria-hidden="true"></i>
+                <span>Contact</span>
+            </button>
+            <button class="quick-btn" onclick="sendMessage('Campus location')" aria-label="Ask about location">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                <span>Location</span>
+            </button>
+            <button class="quick-btn" onclick="sendMessage('MRIIRS ranking and accreditation')" aria-label="Ask about rankings">
+                <i class="fas fa-trophy" aria-hidden="true"></i>
+                <span>Rankings</span>
+            </button>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <button class="attach-btn" title="More options" aria-label="Additional options">
+                <i class="fas fa-plus"></i>
+            </button>
+            <input 
+                type="text" 
+                id="user-input" 
+                placeholder="Ask about courses, admission, fees, placements..." 
+                autocomplete="off"
+                onkeypress="handleKeyPress(event)"
+                aria-label="Type your question here"
+                maxlength="500"
+            >
+            <button id="send-btn" onclick="sendMessage()" aria-label="Send message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+
+        <!-- Typing Indicator -->
+        <div class="typing-indicator" id="typing-indicator" style="display: none;" aria-live="polite" aria-label="Bot is typing">
+            <div class="msg-avatar" aria-hidden="true">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Info -->
+    <footer style="text-align: center; margin-top: 15px; color: rgba(255,255,255,0.95); font-size: 14px; font-weight: 500;">
+        <p style="margin: 5px 0;">
+            <i class="fas fa-phone-alt"></i> Admission Helpdesk: <strong><a href="tel:01294259000" style="color: white; text-decoration: none;">0129-4259000</a></strong> | 
+            <i class="fas fa-globe"></i> <a href="https://manavrachna.edu.in" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: underline;">manavrachna.edu.in</a>
+        </p>
+        <p style="margin: 5px 0; font-size: 12px; opacity: 0.9;">
+            <strong>QS 5-Star Rated</strong> | <strong>NAAC A+ Accredited</strong> | <strong>NIRF Ranked</strong>
+        </p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
